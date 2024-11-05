@@ -1,20 +1,20 @@
 <template>
-  <v-container fluid class="pa-6" style="background-color: #f0f8ff">
+  <v-container fluid class="pa-6" color="grey lighten-4">
     <v-row>
       <!-- Client Information -->
       <v-col cols="12" md="4">
-        <v-card class="mb-4" elevation="4" hover>
-          <v-card-title class="headline blue darken-3 white--text">
+        <v-card class="mb-4" elevation="4" hover color="grey lighten-5">
+          <v-card-title class="headline blue white--text">
             <v-icon left color="white">mdi-account</v-icon>
             Client Information
           </v-card-title>
-          <v-card-text class="pa-4" style="background-color: #e6f2ff">
+          <v-card-text class="pa-4" color="grey lighten-4">
             <v-text-field
               v-model="clientName"
               label="Client Name"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -24,7 +24,7 @@
               label="Email"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -34,7 +34,7 @@
               label="Phone Number"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -44,7 +44,7 @@
               label="PAN Card Number"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -54,7 +54,7 @@
               label="KYC Status"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -64,7 +64,7 @@
               label="Nominee Name"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -75,18 +75,18 @@
 
       <!-- Bank Information and Subscribed Segments -->
       <v-col cols="12" md="4">
-        <v-card class="mb-4" elevation="4" hover>
-          <v-card-title class="headline blue darken-3 white--text">
+        <v-card class="mb-4" elevation="4" hover color="grey lighten-5">
+          <v-card-title class="headline teal darken-2 white--text">
             <v-icon left color="white">mdi-bank</v-icon>
             Bank Information
           </v-card-title>
-          <v-card-text class="pa-4" style="background-color: #e6f2ff">
+          <v-card-text class="pa-4" color="grey lighten-4">
             <v-text-field
               v-model="bankName"
               label="Bank Name"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -96,7 +96,7 @@
               label="Branch Name"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -106,7 +106,7 @@
               label="IFSC Code"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -116,7 +116,7 @@
               label="Bank Account Number"
               outlined
               dense
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               background-color="white"
               class="mb-2"
@@ -124,17 +124,17 @@
           </v-card-text>
         </v-card>
 
-        <v-card elevation="4" hover>
-          <v-card-title class="headline blue darken-3 white--text">
+        <v-card elevation="4" hover color="grey lighten-5">
+          <v-card-title class="headline teal darken-2 white--text">
             <v-icon left color="white">mdi-checkbox-multiple-marked</v-icon>
             Subscribed Segments
           </v-card-title>
-          <v-card-text class="pa-4" style="background-color: #e6f2ff">
+          <v-card-text class="pa-4" color="grey lighten-4">
             <v-checkbox
               v-model="segments"
               label="NSE"
               value="NSE"
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               disabled
               class="mb-1"
@@ -143,7 +143,7 @@
               v-model="segments"
               label="BSE"
               value="BSE"
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               disabled
               class="mb-1"
@@ -152,7 +152,7 @@
               v-model="segments"
               label="MCX"
               value="MCX"
-              color="blue darken-3"
+              color="teal darken-3"
               readonly
               disabled
               class="mb-1"
@@ -163,8 +163,8 @@
 
       <!-- Trade Data Table -->
       <v-col cols="12" md="4">
-        <v-card elevation="4" hover>
-          <v-card-title class="headline blue darken-3 white--text">
+        <v-card elevation="4" hover color="grey lighten-5">
+          <v-card-title class="headline teal darken-2 white--text">
             <v-icon left color="white">mdi-table</v-icon>
             Trade Data
             <v-spacer></v-spacer>
@@ -174,7 +174,7 @@
               label="Search"
               single-line
               hide-details
-              color="blue darken-3"
+              color="teal darken-3"
               background-color="white"
               class="mt-2"
               dense
@@ -186,9 +186,10 @@
             :search="search"
             :items-per-page="5"
             class="elevation-1"
+            color="grey lighten-4"
           >
             <template v-slot:header="{ props: { headers } }">
-              <thead class="blue darken-1">
+              <thead class="teal darken-2">
                 <tr>
                   <th
                     v-for="header in headers"
@@ -201,16 +202,17 @@
               </thead>
             </template>
             <template v-slot:item="{ item }">
-              <tr
-                :style="{ backgroundColor: item.index % 2 === 0 ? '#f5f9ff' : 'white' }"
-              >
+              <tr :color="item.index % 2 === 0 ? 'grey lighten-3' : 'white'">
                 <td
                   v-for="(value, key) in item"
                   :key="key"
                   class="text-subtitle-2"
                 >
                   <span
-                    :class="{'green--text': item.tradeType === 'Buy' && key === 'tradeType', 'red--text': item.tradeType === 'Sell' && key === 'tradeType'}"
+                    :class="{
+                      'green--text': item.tradeType === 'Buy' && key === 'tradeType',
+                      'red--text': item.tradeType === 'Sell' && key === 'tradeType'
+                    }"
                   >
                     {{ value }}
                   </span>
