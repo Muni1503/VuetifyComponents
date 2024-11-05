@@ -18,6 +18,7 @@
                         label="First Name"
                         required
                         outlined
+                         color="blue"
                         dense
                       ></v-text-field>
                     </v-col>
