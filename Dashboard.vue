@@ -1,170 +1,119 @@
 <template>
-  <v-container fluid class="pa-6" color="grey lighten-4">
+  <v-container
+    fluid
+    class="pa-6"
+    :class="$vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-4'"
+  >
     <v-row>
       <!-- Client Information -->
       <v-col cols="12" md="4">
-        <v-card class="mb-4" elevation="4" hover color="grey lighten-5">
-          <v-card-title class="headline blue white--text">
-            <v-icon left color="white">mdi-account</v-icon>
+        <v-card
+          class="mb-4"
+          elevation="4"
+          :color="$vuetify.theme.dark ? 'grey darken-3' : 'white'"
+        >
+          <v-card-title
+            class="headline blue darken-2 white--text d-flex align-center"
+          >
+            <v-icon left color="white" large>mdi-account-circle</v-icon>
             Client Information
           </v-card-title>
-          <v-card-text class="pa-4" color="grey lighten-4">
-            <v-text-field
-              v-model="clientName"
-              label="Client Name"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="email"
-              label="Email"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="phoneNumber"
-              label="Phone Number"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="panCardNumber"
-              label="PAN Card Number"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="kycStatus"
-              label="KYC Status"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="nomineeName"
-              label="Nominee Name"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
+          <v-card-text class="pa-4">
+            <v-list>
+              <v-list-item
+                v-for="(value, key) in clientInfo"
+                :key="key"
+                two-line
+              >
+                <v-list-item-icon>
+                  <v-icon :color="getIconColor(key)">{{ getIcon(key) }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="subtitle-1 font-weight-medium"
+                    >{{ formatLabel(key) }}</v-list-item-title
+                  >
+                  <v-list-item-subtitle class="text--primary"
+                    >{{ value }}</v-list-item-subtitle
+                  >
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
           </v-card-text>
         </v-card>
       </v-col>
 
       <!-- Bank Information and Subscribed Segments -->
       <v-col cols="12" md="4">
-        <v-card class="mb-4" elevation="4" hover color="grey lighten-5">
-          <v-card-title class="headline teal darken-2 white--text">
-            <v-icon left color="white">mdi-bank</v-icon>
+        <v-card
+          class="mb-4"
+          elevation="4"
+          :color="$vuetify.theme.dark ? 'grey darken-3' : 'white'"
+        >
+          <v-card-title
+            class="headline green darken-3 white--text d-flex align-center"
+          >
+            <v-icon left color="white" large>mdi-bank</v-icon>
             Bank Information
           </v-card-title>
-          <v-card-text class="pa-4" color="grey lighten-4">
-            <v-text-field
-              v-model="bankName"
-              label="Bank Name"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="branchName"
-              label="Branch Name"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="ifscCode"
-              label="IFSC Code"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
-            <v-text-field
-              v-model="bankAccountNumber"
-              label="Bank Account Number"
-              outlined
-              dense
-              color="teal darken-3"
-              readonly
-              background-color="white"
-              class="mb-2"
-            ></v-text-field>
+          <v-card-text class="pa-4">
+            <v-list>
+              <v-list-item v-for="(value, key) in bankInfo" :key="key" two-line>
+                <v-list-item-icon>
+                  <v-icon :color="getBankIconColor(key)"
+                    >{{ getBankIcon(key) }}</v-icon
+                  >
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="subtitle-1 font-weight-medium"
+                    >{{ formatLabel(key) }}</v-list-item-title
+                  >
+                  <v-list-item-subtitle class="text--primary"
+                    >{{ value }}</v-list-item-subtitle
+                  >
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
           </v-card-text>
         </v-card>
 
-        <v-card elevation="4" hover color="grey lighten-5">
-          <v-card-title class="headline teal darken-2 white--text">
-            <v-icon left color="white">mdi-checkbox-multiple-marked</v-icon>
+        <v-card
+          elevation="4"
+          :color="$vuetify.theme.dark ? 'grey darken-3' : 'white'"
+        >
+          <v-card-title
+            class="headline teal darken-4 white--text d-flex align-center"
+          >
+            <v-icon left color="white" large
+              >mdi-checkbox-multiple-marked-circle</v-icon
+            >
             Subscribed Segments
           </v-card-title>
-          <v-card-text class="pa-4" color="grey lighten-4">
-            <v-checkbox
-              v-model="segments"
-              label="NSE"
-              value="NSE"
-              color="teal darken-3"
-              readonly
-              disabled
-              class="mb-1"
-            ></v-checkbox>
-            <v-checkbox
-              v-model="segments"
-              label="BSE"
-              value="BSE"
-              color="teal darken-3"
-              readonly
-              disabled
-              class="mb-1"
-            ></v-checkbox>
-            <v-checkbox
-              v-model="segments"
-              label="MCX"
-              value="MCX"
-              color="teal darken-3"
-              readonly
-              disabled
-              class="mb-1"
-            ></v-checkbox>
+          <v-card-text class="pa-4">
+            <v-chip-group column>
+              <v-chip
+                v-for="segment in segments"
+                :key="segment"
+                color="teal"
+                text-color="white"
+                label
+                large
+                class="ma-2"
+              >
+                <v-icon left>mdi-check-circle</v-icon>
+                {{ segment }}
+              </v-chip>
+            </v-chip-group>
           </v-card-text>
         </v-card>
       </v-col>
 
       <!-- Trade Data Table -->
       <v-col cols="12" md="4">
-        <v-card elevation="4" hover color="grey lighten-5">
-          <v-card-title class="headline teal darken-2 white--text">
+        <v-card
+          elevation="4"
+          :color="$vuetify.theme.dark ? 'grey darken-3' : 'white'"
+        >
+          <v-card-title class="headline teal darken-4 white--text">
             <v-icon left color="white">mdi-table</v-icon>
             Trade Data
             <v-spacer></v-spacer>
@@ -174,10 +123,8 @@
               label="Search"
               single-line
               hide-details
-              color="teal darken-3"
-              background-color="white"
+              dark
               class="mt-2"
-              dense
             ></v-text-field>
           </v-card-title>
           <v-data-table
@@ -186,38 +133,15 @@
             :search="search"
             :items-per-page="5"
             class="elevation-1"
-            color="grey lighten-4"
           >
-            <template v-slot:header="{ props: { headers } }">
-              <thead class="teal darken-2">
-                <tr>
-                  <th
-                    v-for="header in headers"
-                    :key="header.text"
-                    class="white--text font-weight-bold text-subtitle-1"
-                  >
-                    {{ header.text }}
-                  </th>
-                </tr>
-              </thead>
-            </template>
-            <template v-slot:item="{ item }">
-              <tr :color="item.index % 2 === 0 ? 'grey lighten-3' : 'white'">
-                <td
-                  v-for="(value, key) in item"
-                  :key="key"
-                  class="text-subtitle-2"
-                >
-                  <span
-                    :class="{
-                      'green--text': item.tradeType === 'Buy' && key === 'tradeType',
-                      'red--text': item.tradeType === 'Sell' && key === 'tradeType'
-                    }"
-                  >
-                    {{ value }}
-                  </span>
-                </td>
-              </tr>
+            <template v-slot:item.tradeType="{ item }">
+              <v-chip
+                :color="item.tradeType === 'Buy' ? 'green' : 'red'"
+                text-color="white"
+                small
+              >
+                {{ item.tradeType }}
+              </v-chip>
             </template>
           </v-data-table>
         </v-card>
@@ -229,18 +153,22 @@
 <script>
   export default {
     data: () => ({
-      clientName: 'John Doe',
-      email: 'john.doe@example.com',
-      phoneNumber: '+1 (555) 123-4567',
-      panCardNumber: 'ABCDE1234F',
-      kycStatus: 'Completed',
-      nomineeName: 'Jane Doe',
-      bankName: 'Global Bank',
-      branchName: 'Main Street Branch',
-      ifscCode: 'GLOB0001234',
-      bankAccountNumber: '1234567890',
-      segments: ['NSE', 'BSE'],
       search: '',
+      clientInfo: {
+        clientName: 'John Doe',
+        email: 'john.doe@example.com',
+        phoneNumber: '+1 (555) 123-4567',
+        panCardNumber: 'ABCDE1234F',
+        kycStatus: 'Completed',
+        nomineeName: 'Jane Doe',
+      },
+      bankInfo: {
+        bankName: 'Global Bank',
+        branchName: 'Main Street Branch',
+        ifscCode: 'GLOB0001234',
+        bankAccountNumber: '1234567890',
+      },
+      segments: ['NSE', 'BSE', 'MCX'],
       headers: [
         { text: 'Trade ID', value: 'tradeId' },
         { text: 'Stock Name', value: 'stockName' },
@@ -292,5 +220,53 @@
         },
       ],
     }),
+    methods: {
+      formatLabel(key) {
+        return key
+          .split(/(?=[A-Z])/)
+          .join(' ')
+          .replace(/\b\w/g, l => l.toUpperCase())
+      },
+      getIcon(key) {
+        const icons = {
+          clientName: 'mdi-account',
+          email: 'mdi-email',
+          phoneNumber: 'mdi-phone',
+          panCardNumber: 'mdi-card-account-details',
+          kycStatus: 'mdi-shield-check',
+          nomineeName: 'mdi-account-multiple',
+        }
+        return icons[key] || 'mdi-information'
+      },
+      getIconColor(key) {
+        const colors = {
+          clientName: 'blue',
+          email: 'green',
+          phoneNumber: 'purple',
+          panCardNumber: 'orange',
+          kycStatus: 'teal',
+          nomineeName: 'pink',
+        }
+        return colors[key] || 'grey'
+      },
+      getBankIcon(key) {
+        const icons = {
+          bankName: 'mdi-bank',
+          branchName: 'mdi-map-marker',
+          ifscCode: 'mdi-barcode',
+          bankAccountNumber: 'mdi-credit-card',
+        }
+        return icons[key] || 'mdi-information'
+      },
+      getBankIconColor(key) {
+        const colors = {
+          bankName: 'green',
+          branchName: 'red',
+          ifscCode: 'blue',
+          bankAccountNumber: 'purple',
+        }
+        return colors[key] || 'grey'
+      },
+    },
   }
 </script>
