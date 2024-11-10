@@ -9,8 +9,6 @@
           :headers="headers"
           :items="bills"
           item-key="billingId"
-          show-select
-          v-model="selectedBills"
           :single-select="false"
           class="elevation-1"
         >
@@ -21,6 +19,15 @@
               class="mt-2"
               @change="toggleSelectAll"
             ></v-switch>
+          </template>
+
+          <!-- Checkbox column template -->
+          <template v-slot:item.select="{ item }">
+            <v-checkbox
+              v-model="selectedBills"
+              :value="item"
+              @click.stop="selectBill(item)"
+            ></v-checkbox>
           </template>
         </v-data-table>
       </v-card-text>
@@ -78,6 +85,7 @@
       selectedBills: [],
       selectAll: false,
       headers: [
+        { text: '', value: 'select', sortable: false }, // Add checkbox column
         { text: 'Billing ID', value: 'billingId' },
         { text: 'Client ID', value: 'clientId' },
         { text: 'Trade ID', value: 'tradeId' },
@@ -136,7 +144,21 @@
     },
     methods: {
       toggleSelectAll() {
-        this.selectedBills = this.selectAll ? [...this.bills] : []
+        if (this.selectAll) {
+          this.selectedBills = [...this.bills]
+        } else {
+          this.selectedBills = []
+        }
+      },
+      selectBill(bill) {
+        const index = this.selectedBills.findIndex(
+          selected => selected.billingId === bill.billingId
+        )
+        if (index >= 0) {
+          this.selectedBills.splice(index, 1)
+        } else {
+          this.selectedBills.push(bill)
+        }
       },
       submitApproval() {
         if (this.selectedBills.length === 0) {
@@ -146,7 +168,6 @@
           )
           return
         }
-        // Here you would typically make an API call to submit the approval
         console.log('Submitting approval:', {
           bills: this.selectedBills.map(bill => bill.billingId),
           approvalStatus: this.approvalStatus,
@@ -156,7 +177,6 @@
           `Approval submitted for ${this.selectedBills.length} bills: ${this.approvalStatus}`,
           'success'
         )
-        // Reset selection after submission
         this.selectedBills = []
         this.selectAll = false
         this.approvalStatus = ''
