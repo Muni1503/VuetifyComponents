@@ -18,8 +18,9 @@
                         label="First Name"
                         required
                         outlined
-                         color="blue"
+                        color="blue"
                         dense
+                        prepend-icon="mdi-account"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -30,6 +31,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-account"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -42,6 +44,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-email"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -52,6 +55,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-phone"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -64,6 +68,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-credit-card"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -74,6 +79,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-account-group"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -86,6 +92,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-bank"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -96,6 +103,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-office-building"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -108,6 +116,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-code-braces"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -118,6 +127,7 @@
                         required
                         outlined
                         dense
+                        prepend-icon="mdi-account-box"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -128,6 +138,7 @@
                     required
                     outlined
                     dense
+                    prepend-icon="mdi-map-marker"
                   ></v-text-field>
                   <v-select
                     v-model="kycStatus"
@@ -137,18 +148,21 @@
                     required
                     outlined
                     dense
+                    prepend-icon="mdi-check-circle-outline"
                   ></v-select>
                   <v-checkbox
                     v-model="agreeTerms"
                     :rules="[v => !!v || 'You must agree to continue!']"
                     label="I agree to the Terms and Conditions"
                     required
+                    prepend-icon="mdi-check-circle-outline"
                   ></v-checkbox>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="reset">
+                  <v-icon left>mdi-close-circle</v-icon>
                   Cancel
                 </v-btn>
                 <v-btn
@@ -157,6 +171,7 @@
                   @click="submit"
                   :disabled="!valid"
                 >
+                  <v-icon left>mdi-check-circle</v-icon>
                   Sign Up
                 </v-btn>
               </v-card-actions>
