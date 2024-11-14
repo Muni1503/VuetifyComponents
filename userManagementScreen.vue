@@ -1,107 +1,124 @@
 <template>
-  <v-container>
-    <v-form ref="form" v-model="isValid" lazy-validation>
-      <!-- User ID Field (Read-only) -->
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-text-field
-            label="User ID"
-            v-model="user.userID"
-            readonly
-            outlined
-            prepend-icon="mdi-account"
-            color="cyan darken-2"
-          ></v-text-field>
-        </v-col>
-      </v-row>
+  <v-container class="d-flex justify-center">
+    <!-- User Management Card -->
+    <v-card outlined color="white" max-width="600">
+      <!-- Card Title with Blue Background and White Text -->
+      <v-card-title
+        class="text-h5 font-weight-bold white--text justify-center"
+        style="background-color: #1976d2"
+      >
+        User Management
+      </v-card-title>
 
-      <!-- Username Field -->
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-text-field
-            label="Username"
-            v-model="user.username"
-            outlined
-            prepend-icon="mdi-account-circle"
-            color="cyan darken-2"
-            :rules="[v => !!v || 'Username is required']"
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      <!-- Form Inside Card -->
+      <v-card-text>
+        <v-form ref="form" v-model="isValid" lazy-validation>
+          <!-- User ID Field (Read-only) -->
+          <v-row justify="center">
+            <v-col cols="12" md="8">
+              <v-text-field
+                label="User ID"
+                v-model="user.userID"
+                readonly
+                outlined
+                prepend-icon="mdi-account"
+                color="cyan darken-2"
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-      <!-- Role Dropdown with Autocomplete -->
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-select
-            label="Role"
-            v-model="user.role"
-            :items="roles"
-            outlined
-            prepend-icon="mdi-shield-account"
-            color="blue darken-2"
-            autocomplete
-            :rules="[v => !!v || 'Role is required']"
-          ></v-select>
-        </v-col>
-      </v-row>
+          <!-- Username Field -->
+          <v-row justify="center">
+            <v-col cols="12" md="8">
+              <v-text-field
+                label="Username"
+                v-model="user.username"
+                outlined
+                prepend-icon="mdi-account-circle"
+                color="cyan darken-2"
+                :rules="[v => !!v || 'Username is required']"
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-      <!-- Status Dropdown -->
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-select
-            label="Status"
-            v-model="user.status"
-            :items="statuses"
-            outlined
-            prepend-icon="mdi-toggle-switch"
-            color="green darken-2"
-            :rules="[v => !!v || 'Status is required']"
-          ></v-select>
-        </v-col>
-      </v-row>
+          <!-- Role Dropdown with Autocomplete -->
+          <v-row justify="center">
+            <v-col cols="12" md="8">
+              <v-select
+                label="Role"
+                v-model="user.role"
+                :items="roles"
+                outlined
+                prepend-icon="mdi-shield-account"
+                color="blue darken-2"
+                autocomplete
+                :rules="[v => !!v || 'Role is required']"
+              ></v-select>
+            </v-col>
+          </v-row>
 
-      <!-- Action Buttons in Same Row -->
-      <v-row class="mt-4" justify="space-between">
-        <!-- Create User Button -->
-        <v-col cols="12" md="4">
-          <v-btn
-            color="blue darken-2"
-            @click="createUser"
-            :disabled="!isValid"
-            outlined
-          >
-            <v-icon left>mdi-account-plus</v-icon>
-            Create User
-          </v-btn>
-        </v-col>
+          <!-- Status Dropdown -->
+          <v-row justify="center">
+            <v-col cols="12" md="8">
+              <v-select
+                label="Status"
+                v-model="user.status"
+                :items="statuses"
+                outlined
+                prepend-icon="mdi-toggle-switch"
+                color="green darken-2"
+                :rules="[v => !!v || 'Status is required']"
+              ></v-select>
+            </v-col>
+          </v-row>
 
-        <!-- Update User Button -->
-        <v-col cols="12" md="4">
-          <v-btn
-            color="cyan darken-2"
-            @click="updateUser"
-            :disabled="!isValid"
-            outlined
-          >
-            <v-icon left>mdi-account-edit</v-icon>
-            Update User
-          </v-btn>
-        </v-col>
+          <!-- Action Buttons in Same Row -->
+          <v-row class="mt-4" justify="center">
+            <!-- Create User Button -->
+            <v-col cols="12" md="4">
+              <v-btn
+                color="blue darken-2"
+                @click="createUser"
+                :disabled="!isValid"
+                outlined
+                class="d-flex align-center justify-center"
+              >
+                <v-icon left>mdi-account-plus</v-icon>
+                Create User
+              </v-btn>
+            </v-col>
 
-        <!-- Delete User Button -->
-        <v-col cols="12" md="4">
-          <v-btn
-            color="red darken-2"
-            @click="deleteUser"
-            :disabled="!isValid"
-            outlined
-          >
-            <v-icon left>mdi-account-remove</v-icon>
-            Delete User
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-form>
+            <!-- Update User Button -->
+            <v-col cols="12" md="4">
+              <v-btn
+                color="cyan darken-2"
+                @click="updateUser"
+                :disabled="!isValid"
+                outlined
+                class="d-flex align-center justify-center"
+              >
+                <v-icon left>mdi-account-edit</v-icon>
+                Update User
+              </v-btn>
+            </v-col>
+
+            <!-- Delete User Button -->
+            <v-col cols="12" md="4">
+              <v-btn
+                color="red darken-2"
+                @click="deleteUser"
+                :disabled="!isValid"
+                outlined
+                class="d-flex align-center justify-center"
+              >
+                <v-icon left>mdi-account-remove</v-icon>
+                Delete User
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
