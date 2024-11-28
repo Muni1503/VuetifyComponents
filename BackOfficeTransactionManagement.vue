@@ -10,31 +10,14 @@
       <v-card-text class="pa-6 grey lighten-5">
         <v-row>
           <v-col cols="12" md="4">
-            <v-menu
-              v-model="dateMenu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="selectedDate"
-                  label="Select Date"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                  outlined
-                  dense
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="selectedDate"
-                @input="dateMenu = false"
-              ></v-date-picker>
-            </v-menu>
+            <v-text-field
+              v-model="selectedDate"
+              label="Date (YYYY-MM-DD)"
+              prepend-icon="mdi-calendar"
+              outlined
+              dense
+              placeholder="e.g. 2023-05-15"
+            ></v-text-field>
           </v-col>
           <v-col cols="12" md="4">
             <v-text-field
@@ -122,7 +105,6 @@
   export default {
     data() {
       return {
-        dateMenu: false,
         selectedDate: new Date().toISOString().substr(0, 10),
         clientId: '',
         tradeId: '',
@@ -251,3 +233,31 @@
     },
   }
 </script>
+
+<style scoped>
+  .v-data-table {
+    background-color: #f5f5f5;
+  }
+
+  .v-data-table >>> .v-data-table__wrapper > table > thead > tr > th {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  .v-btn {
+    text-transform: none;
+  }
+
+  .v-chip {
+    font-weight: bold;
+  }
+
+  .v-select >>> .v-input__slot {
+    min-height: 32px;
+  }
+
+  .v-select >>> .v-select__selections {
+    min-height: 32px;
+  }
+</style>
