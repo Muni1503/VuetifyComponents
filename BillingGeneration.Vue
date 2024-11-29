@@ -38,17 +38,17 @@
                   v-model="tradeDate"
                   label="Trade Date"
                   prepend-icon="mdi-calendar"
-                  readonly
                   v-bind="attrs"
                   v-on="on"
                   outlined
                   dense
+                  @input="validateDate"
+                  placeholder="YYYY-MM-DD"
                 ></v-text-field>
               </template>
               <v-date-picker
                 v-model="tradeDate"
-                @input="dateMenu = false"
-                @change="filterTrades"
+                @input="dateSelected"
               ></v-date-picker>
             </v-menu>
           </v-col>
@@ -199,7 +199,23 @@
         this.snackbarColor = color
         this.snackbar = true
       },
+      validateDate() {
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+        if (!dateRegex.test(this.tradeDate)) {
+          this.showSnackbar(
+            'Please enter a valid date in YYYY-MM-DD format',
+            'error'
+          )
+          this.tradeDate = ''
+        } else {
+          this.filterTrades()
+        }
+      },
+      dateSelected(date) {
+        this.dateMenu = false
+        this.tradeDate = date
+        this.filterTrades()
+      },
     },
   }
 </script>
-
